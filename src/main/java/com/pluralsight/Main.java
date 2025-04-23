@@ -87,7 +87,7 @@ public class Main {
 //      Displays a list of all the books that are currently checked out.
         for (Book book : library) {
             if(book.isCheckedOut()) {
-                System.out.println("ID: " + book.getId() + ", IBSN: " + book.getIsbn() + ", Title: " + book.getTitle());
+                System.out.println("ID: " + book.getId() + ", IBSN: " + book.getIsbn() + ", Title: " + book.getTitle() +", Name: " + book.getCheckedOutTo());
             }
         }
             String userCheckInPrompt = "Select a option: \n" +
@@ -111,7 +111,7 @@ public class Main {
                     assert checkInBook != null;
                     checkInBook.checkIn();
 
-                    System.out.println("You have successfully checked in " + bookCheckInId + ".");
+                    System.out.printf("Thank you, book id number %d have successfully been checked in.\n", bookCheckInId);
                 } else if (userInput.equalsIgnoreCase("X")) {
 
                 }
