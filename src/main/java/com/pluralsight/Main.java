@@ -45,9 +45,7 @@ public class Main {
             if(!book.isCheckedOut()){
                 System.out.println("ID: " + book.getId() + ", IBSN: " + book.getIsbn() + ", Title: " +  book.getTitle());
             }
-
         }
-
             String userPrompt = "Select a option: \n" +
                     "  Y - If you want to select a book to check out\n" +
                     "  N - To go back to the home screen\n";
@@ -60,7 +58,7 @@ public class Main {
                 userInput = scanner.nextLine();
 
                 if (userInput.equalsIgnoreCase("Y")){
-                    System.out.println("Please enter the book id");
+                    System.out.print("Please enter the book id: ");
                     int bookId = scanner.nextInt();
                     scanner.nextLine();
 
@@ -73,8 +71,6 @@ public class Main {
 
                     theSelectedBook.checkOut(name);
 
-
-
                     System.out.printf("%s you have checkout out successfully.\n", name);
                 } else if (userInput.equalsIgnoreCase("N")){
 
@@ -85,34 +81,56 @@ public class Main {
 
     }
     private static void showScreenCheckOutBook(){
+
+        System.out.println("Check Out Books:");
+
+//      Displays a list of all the books that are currently checked out.
         for (Book book : library) {
-            System.out.println("Available Books:");
-            System.out.println("ID: " + book.getId() + ", IBSN: " + book.getIsbn() + ", Title: " + book.getTitle());
+            if(book.isCheckedOut()) {
+                System.out.println("ID: " + book.getId() + ", IBSN: " + book.getIsbn() + ", Title: " + book.getTitle());
+            }
+        }
             String userCheckInPrompt = "Select a option: \n" +
                     "  C - If you want to check in a book\n" +
                     "  X - To go back to the home screen\n";
 
-            String bookName;
+            int bookCheckInId;
+            String userInput;
             do {
-                if (userCheckInPrompt.equalsIgnoreCase("C")){
-                    System.out.print("Which Book are checking in? ");
-                    bookName = scanner.nextLine();
+                System.out.print(userCheckInPrompt);
+                userInput = scanner.nextLine();
+                if (userInput.equalsIgnoreCase("C")){
 
-                    System.out.println("You have successfully checked in " + bookName + ".");
-                } else if (userCheckInPrompt.equalsIgnoreCase("X")) {
-                    showScreenHome();
+//                  Check in the book with the specified id
+                    System.out.print("Please enter the ID of the book you are checking in: ");
+                    bookCheckInId = scanner.nextInt();
+                    scanner.nextLine();
+
+//                  Getting the check-out books by their ID
+                    Book checkInBook = getCheckOutBooksId(library, bookCheckInId);
+                    assert checkInBook != null;
+                    checkInBook.checkIn();
+
+                    System.out.println("You have successfully checked in " + bookCheckInId + ".");
+                } else if (userInput.equalsIgnoreCase("X")) {
+
                 }
-            } while (!userCheckInPrompt.equalsIgnoreCase("C/X"));
-
-        }
-
-
+            } while (!userInput.equalsIgnoreCase("X"));
     }
 
     private static Book getBookById(Book[] books, int id){
         for(Book book : books){
             if( book.getId() == id){
                 return book;
+            }
+        }
+        return null;
+    }
+
+    private static Book getCheckOutBooksId(Book[] books, int id){
+        for (Book checkOut : books){
+            if (checkOut.getId() == id){
+                return checkOut;
             }
         }
         return null;
@@ -146,6 +164,32 @@ public class Main {
 
         return library;
     }
+
+//    private static void showScreenCheckOutBook(){
+//
+//        System.out.print("Check Out Books:");
+//
+//        for (Book book : library) {
+//            if(book.isCheckedOut()) {
+//                System.out.println("ID: " + book.getId() + ", IBSN: " + book.getIsbn() + ", Title: " + book.getTitle());
+//            }
+//        }
+//        String userCheckInPrompt = "Select a option: \n" +
+//                "  C - If you want to check in a book\n" +
+//                "  X - To go back to the home screen\n";
+//
+//        String bookName;
+//        do {
+//            if (userCheckInPrompt.equalsIgnoreCase("C")){
+//                System.out.print("Which Book are checking in? ");
+//                bookName = scanner.nextLine();
+//
+//                System.out.println("You have successfully checked in " + bookName + ".");
+//            } else if (userCheckInPrompt.equalsIgnoreCase("X")) {
+//
+//            }
+//        } while (!userCheckInPrompt.equalsIgnoreCase("X"));
+//    }
 
 
 }
