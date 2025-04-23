@@ -37,15 +37,40 @@ public class Main {
             }
         } while (option != 0);
     }
+
+    private static void showScreenAvailableBooks1(){
+        // greet user to this menu
+        System.out.println("Available Books:");
+
+        // Displaying All the available books
+        displayAvailableBooks();
+
+        // ask if user want to check out.
+        String userPrompt = "Select a option: \n" +
+                    "  Y - If you want to select a book to check out\n" +
+                    "  N - To go back to the home screen\n";
+
+        // if yes - promt for which book, and who will check it out than modify data to reflect current state of  app
+
+        //  keep asking until a no
+
+        //on no, exit to main
+
+    }
+
+    private static void displayAvailableBooks(){
+        System.out.println(Book.getFormattedBookTextHeader());
+        for (Book book : library){
+            if(!book.isCheckedOut()){
+                System.out.println(book.getFormatedBookText());
+            }
+        }
+    }
+
     private static void showScreenAvailableBooks(){
 
         System.out.println("Available Books:");
-
-        for (Book book : library){
-            if(!book.isCheckedOut()){
-                System.out.println("ID: " + book.getId() + ", IBSN: " + book.getIsbn() + ", Title: " +  book.getTitle());
-            }
-        }
+        displayAvailableBooks();
             String userPrompt = "Select a option: \n" +
                     "  Y - If you want to select a book to check out\n" +
                     "  N - To go back to the home screen\n";

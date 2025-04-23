@@ -57,4 +57,17 @@ public class Book {
         this.checkedOutTo = "";
         this.isCheckedOut = false;
     }
+
+//    public String getFormatedBookText(){
+//        String result  =  "ID: " + this.id + ", IBSN: " + this.isbn + ", Title: " +  this.title;
+//        return result;
+//    }
+    public String getFormatedBookText(){
+        return String.format("%-5d %-51s %21s", this.id, this.title, this.isbn);
+    }
+
+    public static String getFormattedBookTextHeader(){
+        return "ID    TITLE                                               IBSN\n+" +
+                "------------------------------------------------------------------------------+";
+    }
 }
